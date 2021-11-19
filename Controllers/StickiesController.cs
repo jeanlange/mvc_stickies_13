@@ -24,6 +24,12 @@ namespace Stickies.Controllers
             return View(await _context.ScreenSticky.ToListAsync());
         }
 
+        // GET: Stickies/Board
+        public async Task<IActionResult> Board()
+        {
+            return View(await _context.ScreenSticky.ToListAsync());
+        }
+
         // GET: Stickies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
