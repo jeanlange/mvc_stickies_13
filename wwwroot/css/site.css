@@ -1,4 +1,17 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿#container div {
+  width: 10vw;
+  height: 10vw;
+  background-color: magenta;
+  margin: 10px;
+  padding: 10px;
+  overflow: scroll;
+  box-shadow: 3px 3px 5px 1px grey;
+}
+#container {
+  display: flex;
+}
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {

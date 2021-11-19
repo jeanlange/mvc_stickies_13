@@ -54,18 +54,24 @@ namespace Stickies.Controllers
             return View();
         }
 
+        // [HttpPost]
+        // example other action we could make the form go to?
+        // public string TestCreate(string Text) {
+        //     return "hello world";
+        // }
+
         // POST: Stickies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Text,Order")] ScreenSticky screenSticky)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(screenSticky);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Board));
             }
             return View(screenSticky);
         }
