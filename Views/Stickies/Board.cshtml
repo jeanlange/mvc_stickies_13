@@ -1,4 +1,4 @@
-@model IEnumerable<Stickies.Models.ScreenSticky>
+@model List<Stickies.Models.ScreenSticky>
 
 @{
     ViewData["Title"] = "Board";
@@ -11,8 +11,51 @@
     <button type="submit">Add it!</button>
 </form>
 
+<form action="/Stickies/SaveNewOrder" method="POST" id="order_form">
+    <input name="Ids" type="text" id="flubber" />
+    <button type="submit">Save new order?</button>
+</form>
+
 <div id="container">
     @foreach (var sticky in Model) {
-        <div>@sticky.Text</div>
+        <div id=@sticky.Id>@sticky.Order - @sticky.Text</div>
     }
 </div>
+
+
+@section Scripts {
+<script>
+    function doSuccess()
+    {
+        console.log(arguments);
+        console.log("Hey, I worked!");
+    }
+
+    function GetOrder()
+    {
+        // gets the ids
+        var ids = $("#container").sortable('toArray').join();
+        // puts them into an input box
+        // document.getElementById("flubber").value = ids;
+
+        // hit go on the form (or send the ids to our controller)
+        // document.getElementById("order_form").submit()
+
+        // instead of submit, can we just use javascript to go to the controller
+        $.ajax({
+            type: 'post',
+            url: '/stickies/saveneworder',
+            data: {
+                Ids: ids
+            },
+            success: doSuccess
+        });
+
+        // fetch() is the same thing, it needs all the same info
+    }
+
+    $("#container").sortable({
+        update: GetOrder
+    });
+</script>
+}

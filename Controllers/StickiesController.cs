@@ -24,10 +24,43 @@ namespace Stickies.Controllers
             return View(await _context.ScreenSticky.ToListAsync());
         }
 
+        public string SaveNewOrder(string Ids) {
+            // do something here to reorder stuff
+            // I need to get in something like 1, 2, 3 and turn it into an array
+            // How can this be?
+            List<int> stickyIds = ConvertNumbers(Ids);
+
+            // Get one of the stickies
+            // Give it its new order
+            // Save it
+            for(int i = 0; i < stickyIds.Count; i++)
+            {
+                ScreenSticky currentSticky = _context.ScreenSticky.Find(stickyIds[i]);
+                currentSticky.Order = i;
+            }
+            _context.SaveChanges();
+
+            return "I have saved your new order!";
+        }
+
+        private List<int> ConvertNumbers(string Numbers)
+        {
+            string[] IdsAsArray = Numbers.Split(',');
+            List<int> Bananas = new List<int>();
+            for(int i = 0; i < IdsAsArray.Length; i++)
+            {
+                Bananas.Add(Convert.ToInt32(IdsAsArray[i]));
+            }
+            return Bananas;
+        }
+
         // GET: Stickies/Board
         public async Task<IActionResult> Board()
         {
-            return View(await _context.ScreenSticky.ToListAsync());
+            return View(await _context
+                .ScreenSticky
+                .OrderBy(x => x.Order)
+                .ToListAsync());
         }
 
         // GET: Stickies/Details/5
